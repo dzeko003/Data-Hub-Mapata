@@ -1,0 +1,88 @@
+services:
+  traefik:
+    image: traefik:v3.6
+    container_name: traefik
+    command:
+      - "--api.dashboard=true"
+      - "--api.insecure=true"
+      - "--providers.docker=true"
+      - "--providers.docker.exposedbydefault=false"
+      - "--entrypoints.web.address=:80"
+    ports:
+      - "80:80"
+      - "8082:8080"
+    volumes:
+      - "/var/run/docker.sock:/var/run/docker.sock:ro"
+    networks:
+      - datahub-network
+
+  db:
+    image: mysql:8.0
+    container_name: db
+    environment:
+      MYSQL_ROOT_PASSWORD: PB@rj6s55)3Q!d
+    volumes:
+      - mysql_data:/var/lib/mysql
+      - ./db/datahub.sql:/docker-entrypoint-initdb.d/datahub.sql:ro
+    networks:
+      - datahub-network
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    container_name: phpmyadmin
+    environment:
+      PMA_HOST: db
+      PMA_PORT: 3306
+      PMA_USER: root
+      PMA_PASSWORD: PB@rj6s55)3Q!d
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.phpmyadmin.rule=Host(`pma.localhost`)"
+      - "traefik.http.routers.phpmyadmin.entrypoints=web"
+    depends_on:
+      - db
+      - traefik
+    networks:
+      - datahub-network
+
+  datahub_api:
+    build:
+      context: ./datahub-api
+    container_name: datahub_api
+    env_file:
+      - ./datahub-api/.env
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.services.datahub_api.loadbalancer.server.port=80"
+      - "traefik.http.routers.datahub_api.rule=Host(`api.datahub.localhost`)"
+      - "traefik.http.routers.datahub_api.entrypoints=web"
+    depends_on:
+      - db
+      - traefik
+    networks:
+      - datahub-network
+
+  datahub_frontend:
+    build:
+      context: ./data-hub
+    container_name: datahub_frontend
+    env_file:
+      - ./data-hub/.env
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.datahub.rule=Host(`datahub.localhost`)"
+      - "traefik.http.services.datahub_frontend.loadbalancer.server.port=80"
+      - "traefik.http.routers.datahub.entrypoints=web"
+    depends_on:
+      - datahub_api
+      - traefik
+    networks:
+      - datahub-network
+
+networks:
+  datahub-network:
+    driver: bridge
+
+volumes:
+  mysql_data:
+    driver: local
