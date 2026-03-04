@@ -106,17 +106,20 @@ Le frontend est construit en 2 étapes :
 ### Interface Frontend (React)
 
 ```
-[Image : Capture d'écran de l'application frontend]
-*Figure 1: Page d'accueil de l'application DataHub*
+*Figure 1: l'application DataHub*
+
 ```
+
+![alt text](<Capture d’écran du 2026-03-04 21-14-56.png>)
 
 ![alt text](<Capture d’écran du 2026-03-04 21-14-47.png>)
 
 ### API Backend (Laravel)
 
 ```
-[Image : Capture d'écran de la documentation API ou d'une réponse API]
 *Figure 2: Exemple de réponse de l'API Laravel*
+
+
 ```
 
 ![alt text](<Capture d’écran du 2026-03-04 21-21-28.png>)
@@ -124,8 +127,9 @@ Le frontend est construit en 2 étapes :
 ### phpMyAdmin
 
 ```
-[Image : Capture d'écran de l'interface phpMyAdmin]
 *Figure 3: Interface d'administration de la base de données*
+
+
 ```
 
 ![alt text](<Capture d’écran du 2026-03-04 21-17-07.png>)
@@ -133,7 +137,6 @@ Le frontend est construit en 2 étapes :
 ### Dashboard Traefik
 
 ```
-[Image : Capture d'écran du dashboard Traefik]
 *Figure 4: Tableau de bord Traefik avec les routes configurées*
 ```
 
@@ -237,8 +240,7 @@ services:
 ### Flux de requêtes
 
 ```
-[Image : Diagramme de flux des requêtes à travers Traefik]
-*Figure 5: Cheminement d'une requête utilisateur à travers l'infrastructure*
+*Figure 5: Tableau de bord Traefik*
 ```
 
 ![alt text](<Capture d’écran du 2026-03-04 21-27-54.png>)
@@ -334,8 +336,4 @@ docker exec datahub_api tail -f storage/logs/laravel.log
 
 **Dernière mise à jour :** Mars 2026
 
-**Mainteneur :** [Berenis MASSAMBA]
-
----
-
-_Pour toute question ou problème, ouvrez une issue sur le dépôt GitHub._
+**Mainteneur :** Berenis MASSAMBA
