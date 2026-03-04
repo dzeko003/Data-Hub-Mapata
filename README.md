@@ -1,7 +1,3 @@
-Voici votre fichier README.md nettoyé des informations sensibles et enrichi avec des sections pour les illustrations :
-
----
-
 # DataHub - Plateforme de Gestion de Données
 
 DataHub est une application full-stack complète composée d'un frontend React, d'une API Laravel/PHP, d'une base de données MySQL, le tout orchestré avec Docker et routé via Traefik.
@@ -68,9 +64,9 @@ Ajoutez ces lignes à votre fichier hosts (`/etc/hosts` ou `C:\Windows\System32\
 ```yaml
 # Version simplifiée de votre docker-compose.yml
 services:
-  traefik:     # Reverse proxy
-  db:          # MySQL 8.0
-  phpmyadmin:  # Interface DB
+  traefik: # Reverse proxy
+  db: # MySQL 8.0
+  phpmyadmin: # Interface DB
   datahub_api: # Laravel API
   datahub_frontend: # React App
 ```
@@ -78,29 +74,32 @@ services:
 ### Backend (Laravel/PHP)
 
 Le backend utilise une image PHP 8.3-FPM avec :
+
 - Extensions PHP : pdo_mysql, mbstring, xml, zip, gd, redis
 - Nginx comme serveur web
 - Supervisor pour gérer PHP-FPM et Nginx
 - Composer pour les dépendances
 
 **Fichiers de configuration requis :**
+
 - `datahub-api/nginx.conf` : Configuration Nginx
 - `datahub-api/supervisord.conf` : Configuration Supervisor
 
 ### Frontend (React)
 
 Le frontend est construit en 2 étapes :
+
 1. **Build** : Image Node pour compiler l'application avec Vite
 2. **Production** : Image Nginx servant les fichiers statiques
 
 ## 🌐 Accès aux services
 
-| Service | URL | Identifiants |
-|---------|-----|--------------|
-| **Application** | http://datahub.localhost | - |
-| **API** | http://api.datahub.localhost | - |
-| **phpMyAdmin** | http://pma.localhost | À configurer |
-| **Dashboard Traefik** | http://localhost:8082 | - |
+| Service               | URL                          | Identifiants |
+| --------------------- | ---------------------------- | ------------ |
+| **Application**       | http://datahub.localhost     | -            |
+| **API**               | http://api.datahub.localhost | -            |
+| **phpMyAdmin**        | http://pma.localhost         | À configurer |
+| **Dashboard Traefik** | http://localhost:8082        | -            |
 
 ## 📸 Captures d'écran
 
@@ -111,12 +110,16 @@ Le frontend est construit en 2 étapes :
 *Figure 1: Page d'accueil de l'application DataHub*
 ```
 
+![alt text](<Capture d’écran du 2026-03-04 21-14-47.png>)
+
 ### API Backend (Laravel)
 
 ```
 [Image : Capture d'écran de la documentation API ou d'une réponse API]
 *Figure 2: Exemple de réponse de l'API Laravel*
 ```
+
+![alt text](<Capture d’écran du 2026-03-04 21-21-28.png>)
 
 ### phpMyAdmin
 
@@ -125,12 +128,16 @@ Le frontend est construit en 2 étapes :
 *Figure 3: Interface d'administration de la base de données*
 ```
 
+![alt text](<Capture d’écran du 2026-03-04 21-17-07.png>)
+
 ### Dashboard Traefik
 
 ```
 [Image : Capture d'écran du dashboard Traefik]
 *Figure 4: Tableau de bord Traefik avec les routes configurées*
 ```
+
+![alt text](<Capture d’écran du 2026-03-04 21-23-48.png>)
 
 ## 📁 Structure du projet
 
@@ -219,10 +226,10 @@ Pour le développement, vous pouvez monter les dossiers locaux :
 services:
   datahub_api:
     volumes:
-      - ./datahub-api:/var/www  # Montage pour développement
+      - ./datahub-api:/var/www # Montage pour développement
   datahub_frontend:
     volumes:
-      - ./data-hub:/app  # Montage pour développement
+      - ./data-hub:/app # Montage pour développement
 ```
 
 ## 📊 Illustrations supplémentaires
@@ -234,18 +241,14 @@ services:
 *Figure 5: Cheminement d'une requête utilisateur à travers l'infrastructure*
 ```
 
-### Interface d'administration
-
-```
-[Image : Capture d'écran d'une interface d'administration si applicable]
-*Figure 6: Interface d'administration de l'application*
-```
+![alt text](<Capture d’écran du 2026-03-04 21-27-54.png>)
 
 ## 🔧 Dépannage
 
 ### Problèmes courants
 
 **1. Les services ne démarrent pas**
+
 ```bash
 # Vérifier les logs
 docker-compose logs
@@ -254,10 +257,12 @@ sudo lsof -i :80,8082,3306
 ```
 
 **2. Erreur "Host not found"**
+
 - Vérifiez le fichier hosts
 - Vérifiez que Traefik est bien démarré
 
 **3. Erreur de connexion à la base de données**
+
 ```bash
 # Vérifier que MySQL est prêt
 docker logs db
@@ -266,11 +271,13 @@ docker exec datahub_api php artisan db:monitor
 ```
 
 **4. Permission denied sur storage**
+
 ```bash
 docker exec datahub_api chmod -R 777 storage bootstrap/cache
 ```
 
 **5. Reconstruire depuis zéro**
+
 ```bash
 # Supprimer tout et recommencer
 docker-compose down -v
@@ -315,20 +322,6 @@ docker exec datahub_api tail -f storage/logs/laravel.log
    - Utiliser des réseaux Docker isolés
    - Configurer des firewalls
 
-## 📸 Galerie d'images
-
-### Frontend
-*Insérez ici une capture d'écran de votre interface React*
-
-### Backend
-*Insérez ici une capture d'écran de votre API en action (Postman, Swagger, etc.)*
-
-### phpMyAdmin
-*Insérez ici une capture d'écran de phpMyAdmin connecté à votre base*
-
-### Traefik Dashboard
-*Insérez ici une capture d'écran du dashboard Traefik*
-
 ## 🤝 Contribution
 
 1. Forkez le projet
@@ -345,4 +338,4 @@ docker exec datahub_api tail -f storage/logs/laravel.log
 
 ---
 
-*Pour toute question ou problème, ouvrez une issue sur le dépôt GitHub.*
+_Pour toute question ou problème, ouvrez une issue sur le dépôt GitHub._
